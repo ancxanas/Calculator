@@ -1,3 +1,4 @@
+//functions to calculate two numbers
 const add = (a, b) => a + b;
 
 const subtract = (a, b) => a - b;
@@ -6,6 +7,7 @@ const multiply = (a, b) => a * b;
 
 const divide = (a, b) => (b == 0 ? 0 : a / b);
 
+//function to operate based on a specific operator
 function operate(operator, a, b) {
   switch (operator) {
     case '+':
@@ -35,18 +37,23 @@ let operator = undefined;
 currentOperandTextElement.innerText = 0;
 previousOperandTextElement.innerText = 0;
 
+//When pressed a number button executes updateDisplay function
 numberButtons.forEach((number) => {
   number.addEventListener('click', updateDisplay);
 });
+
+//When pressed an operator button executes handleOperation function
+operationButtons.forEach((operator) => {
+  operator.addEventListener('click', handleOperation);
+});
+
+//When Equal to button is pressed executes toEqualTo function
+equalsButton.addEventListener('click', toEqualTo);
 
 function updateDisplay(e) {
   displayValue += e.target.textContent;
   currentOperandTextElement.innerText = displayValue;
 }
-
-operationButtons.forEach((operator) => {
-  operator.addEventListener('click', handleOperation);
-});
 
 function handleOperation(e) {
   currentOperandTextElement.innerText = 0;
@@ -56,12 +63,12 @@ function handleOperation(e) {
   displayValue = '';
 }
 
-equalsButton.addEventListener('click', () => {
+function toEqualTo() {
   result = operate(operator, parseInt(firstNumber), parseInt(displayValue));
   currentOperandTextElement.innerText = result;
   previousOperandTextElement.innerText = `${firstNumber} ${operator} ${displayValue}`;
   displayValue = result;
-});
+}
 
 allClearButton.addEventListener('click', () => {
   displayValue = '';
