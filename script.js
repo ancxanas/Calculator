@@ -7,6 +7,8 @@ const multiply = (a, b) => a * b;
 
 const divide = (a, b) => (b == 0 ? 0 : a / b);
 
+const modulus = (a, b) => a % b;
+
 //function to operate based on a specific operator
 function operate(operator, a, b) {
   switch (operator) {
@@ -18,6 +20,8 @@ function operate(operator, a, b) {
       return multiply(a, b);
     case '/':
       return divide(a, b);
+    case '%':
+      return modulus(a, b);
   }
 }
 
