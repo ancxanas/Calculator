@@ -30,19 +30,18 @@ const equalsButton = document.querySelector('.equals-button');
 
 let displayValue = '';
 let firstNumber = '';
-let nextNumber = '';
 let result = '';
 let operator = undefined;
-let isOperatorPressed = false;
+currentOperandTextElement.innerText = 0;
+previousOperandTextElement.innerText = 0;
 
 numberButtons.forEach((number) => {
   number.addEventListener('click', updateDisplay);
 });
 
 function updateDisplay(e) {
-  displayValue = currentOperandTextElement.innerText += e.target.textContent;
-  firstNumber = previousOperandTextElement.innerText.replace(/\D/g, '');
-  nextNumber = currentOperandTextElement.innerText;
+  displayValue += e.target.textContent;
+  currentOperandTextElement.innerText = displayValue;
 }
 
 operationButtons.forEach((operator) => {
@@ -50,24 +49,25 @@ operationButtons.forEach((operator) => {
 });
 
 function handleOperation(e) {
-  previousOperandTextElement.innerText += displayValue += e.target.textContent;
+  currentOperandTextElement.innerText = 0;
   operator = e.target.textContent;
-  currentOperandTextElement.innerText = '';
+  firstNumber = displayValue;
+  previousOperandTextElement.innerText = `${displayValue} ${operator}`;
+  displayValue = '';
 }
 
 equalsButton.addEventListener('click', () => {
-  result = operate(operator, firstNumber, nextNumber);
-  previousOperandTextElement.innerText += displayValue;
-  currentOperandTextElement.innerText = '';
-  currentOperandTextElement.innerText += result;
-  previousOperandTextElement.innerHTML = '';
-  previousOperandTextElement.innerText += firstNumber += operator += nextNumber;
+  result = operate(operator, parseInt(firstNumber), parseInt(displayValue));
+  currentOperandTextElement.innerText = result;
+  previousOperandTextElement.innerText = `${firstNumber} ${operator} ${displayValue}`;
+  displayValue = result;
 });
 
 allClearButton.addEventListener('click', () => {
+  displayValue = '';
   firstNumber = '';
   nextNumber = '';
   operator = '';
-  previousOperandTextElement.innerText = '';
-  currentOperandTextElement.innerText = '';
+  previousOperandTextElement.innerText = 0;
+  currentOperandTextElement.innerText = 0;
 });
