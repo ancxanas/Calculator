@@ -5,7 +5,7 @@ const subtract = (a, b) => a - b;
 
 const multiply = (a, b) => a * b;
 
-const divide = (a, b) => (b == 0 ? '∞' : a / b);
+const divide = (a, b) => (b == 0 ? 'Infinity' : a / b);
 
 const modulus = (a, b) => a % b;
 
@@ -53,6 +53,11 @@ operationButtons.forEach((operator) => {
 //When Equal to button is pressed executes toEqualTo function
 equalsButton.addEventListener('click', toEqualTo);
 
+//When BackSpace button is pressed executes backSpace function
+deleteButton.addEventListener('click', backSpace);
+
+//When AllClear Button pressed executes allClear function
+allClearButton.addEventListener('click', allClear);
 function updateDisplay(e) {
   if (
     e.target.textContent === '.' &&
@@ -78,11 +83,18 @@ function toEqualTo() {
   displayValue = result;
 }
 
-allClearButton.addEventListener('click', () => {
+function backSpace() {
+  currentOperandTextElement.innerText =
+    currentOperandTextElement.innerText.slice(0, -1);
+}
+
+function allClear() {
   displayValue = '';
   firstNumber = '';
-  nextNumber = '';
+  result = '';
   operator = '';
   previousOperandTextElement.innerText = 0;
   currentOperandTextElement.innerText = 0;
-});
+}
+
+window.onload = allClear;
